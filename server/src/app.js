@@ -9,8 +9,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 app.post('/register', (req, res) => {
-  console.log('req.body!', req.body)
-  if (!req.body.email.match('@gmail.com')) {
+  if (req.body.email && !req.body.email.match('@gmail.com')) {
     res.status(400)
     res.send({
       message: `We only allow gmail users around here, friend. But this is all fake so try again without that janky '${req.body.email}' email.`

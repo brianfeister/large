@@ -122,9 +122,10 @@ export default {
         await this.timeout(1000)
         window.alert('redirecting you now')
       } catch (e) {
+        await this.timeout(1000)
         this.userRegFailed = true
-        console.error(e)
         this.userRegFailMsg = e
+        this.sending = false
       }
     },
     validateUser () {
