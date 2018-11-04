@@ -28,12 +28,27 @@
         </md-card-actions>
       </md-card>
 
-      <md-snackbar :md-active.sync="userSaved">The user {{ lastUser }} was saved with success!</md-snackbar>
+      <md-snackbar
+        :md-active.sync="userRegistered"
+        md-position="center"
+        md-persistent
+      >
+        {{ lastUser }} registered!
+      </md-snackbar>
+
+      <md-snackbar
+        :md-active.sync="userRegFailed"
+        md-position="center"
+        md-persistent
+      >
+        {{ userRegFailMsg }}
+      </md-snackbar>
     </form>
   </div>
 </template>
 
 <script>
+import Auth from '@/services/Auth'
 import { validationMixin } from 'vuelidate'
 import {
   required,
@@ -49,8 +64,10 @@ export default {
       email: null,
       password: null,
     },
-    userSaved: false,
+    userRegistered: false,
     sending: false,
+    userRegFailed: false,
+    userRegFailMsg: '',
     lastUser: null,
   }),
   validations: {
@@ -80,22 +97,41 @@ export default {
       this.form.email = null
       this.form.password = null
     },
-    saveUser () {
-      this.sending = true
+    timeout (ms) {
+      return new Promise(resolve => setTimeout(resolve, ms))
+    },
+    async register () {
+      try {
+        this.sending = true
+        this.userRegFailed = false
 
-      // Instead of this timeout, here you can call your API
-      window.setTimeout(() => {
+        const res = await Auth.register({
+          email: this.form.email,
+          password: this.form.password,
+        })
+
+        console.log('registered with payload:', res)
+        if (res.status !== 200) {
+          console.log('res.status !== 200', res.status)
+        }
+
         this.lastUser = `${this.form.email}`
-        this.userSaved = true
+        this.userRegistered = true
         this.sending = false
         this.clearForm()
-      }, 1500)
+        await this.timeout(1000)
+        window.alert('redirecting you now')
+      } catch (e) {
+        this.userRegFailed = true
+        console.error(e)
+        this.userRegFailMsg = e
+      }
     },
     validateUser () {
       this.$v.$touch()
 
       if (!this.$v.$invalid) {
-        this.saveUser()
+        this.register()
       }
     }
   }

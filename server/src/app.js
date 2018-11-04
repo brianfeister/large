@@ -10,9 +10,16 @@ app.use(cors())
 
 app.post('/register', (req, res) => {
   console.log('req.body!', req.body)
-  res.send({
-    message: `user with email '${req.body.email}' registered with password '${req.body.password}'`
-  })
+  if (!req.body.email.match('@gmail.com')) {
+    res.status(400)
+    res.send({
+      message: `We only allow gmail users around here, friend. But this is all fake so try again without that janky '${req.body.email}' email.`
+    })
+  } else {
+    res.send({
+      message: `user with email '${req.body.email}' registered with password '${req.body.password}'`
+    })
+  }
 })
 
 app.listen(process.env.port || 8081)
