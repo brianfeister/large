@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div id="register">
     <form novalidate class="md-layout md-alignment-top-center" @submit.prevent="validateUser">
       <md-card class="md-layout-item md-size-30 md-small-size-100">
         <md-card-header>
-          <div class="md-title">Register</div>
+          <div class="md-title">Signup</div>
         </md-card-header>
 
         <md-card-content>
@@ -24,7 +24,7 @@
         <md-progress-bar md-mode="indeterminate" v-if="sending" />
 
         <md-card-actions>
-          <md-button type="submit" class="md-primary" :disabled="sending">Register</md-button>
+          <md-button type="submit" class="md-primary" :disabled="sending">Sign Up</md-button>
         </md-card-actions>
       </md-card>
 
@@ -38,6 +38,7 @@
 
       <md-snackbar
         :md-active.sync="userRegFailed"
+        :md-duration="Infinity"
         md-position="center"
         md-persistent
       >
@@ -64,9 +65,9 @@ export default {
       email: null,
       password: null,
     },
+    userRegFailed: false,
     userRegistered: false,
     sending: false,
-    userRegFailed: false,
     userRegFailMsg: '',
     lastUser: null,
   }),
@@ -74,11 +75,11 @@ export default {
     form: {
       email: {
         required,
-        email
+        email,
       },
       password: {
         required,
-        minLength: minLength(6)
+        minLength: minLength(8)
       }
     }
   },
@@ -105,15 +106,10 @@ export default {
         this.sending = true
         this.userRegFailed = false
 
-        const res = await Auth.register({
+        await Auth.register({
           email: this.form.email,
           password: this.form.password,
         })
-
-        console.log('registered with payload:', res)
-        if (res.status !== 200) {
-          console.log('res.status !== 200', res.status)
-        }
 
         this.lastUser = `${this.form.email}`
         this.userRegistered = true
@@ -128,13 +124,19 @@ export default {
         this.sending = false
       }
     },
-    validateUser () {
+    async validateUser () {
       this.$v.$touch()
-
       if (!this.$v.$invalid) {
-        this.register()
+        await this.register()
+        this.$v.$touch()
       }
     }
   }
 }
 </script>
+
+<style>
+#register {
+  margin-top: 40px;
+}
+</style>
