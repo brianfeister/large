@@ -43,6 +43,13 @@ module.exports = {
       if (!title) throw new Error(`Post must have a title`)
       if (!content) throw new Error(`Post body must have a JSON 'content' payload`)
       if (!createdBy) throw new Error(`Post must have an author in 'createdBy' field`)
+      const existingPost = await Post.findOne({
+        where: {
+          title: req.body.title,
+        }
+      })
+      if (existingPost) throw new Error(`A post with that name already exists`)
+
       const post = await Post.create(req.body)
 
       res.send(post)

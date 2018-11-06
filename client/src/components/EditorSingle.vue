@@ -260,11 +260,12 @@ export default {
     },
     async savePost () {
       try {
-        await Posts.create({
+        const res = await Posts.create({
           title: this.form.title,
           createdBy: this.$store.state.user.email || 'Anonymous',
           content: this.$refs.editor.getJSON(),
         })
+        this.$router.push(`/posts/${res.data.uuid}/edit`)
       } catch (e) {
         throw e
       }
