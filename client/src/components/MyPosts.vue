@@ -1,8 +1,9 @@
 <template>
-  <div id="home">
+  <div id="myposts">
     <posts
-      subtext="A list of posts from EVERYONE"
-      pageTitle="Home"
+      :filter="{ createdBy: $store.state.user.email}"
+      subtext="A list of all of YOUR posts"
+      pageTitle="My Posts"
     />
   </div>
 </template>
@@ -18,7 +19,7 @@ export default {
 </script>
 
 <style>
-#home {
+#myposts {
   margin-top: 40px;
 }
 </style>
