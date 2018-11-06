@@ -106,17 +106,19 @@ export default {
         this.sending = true
         this.userRegFailed = false
 
-        await Auth.register({
+        const res = await Auth.register({
           email: this.form.email,
           password: this.form.password,
         })
+
+        this.$store.dispatch('setToken', res.data.token)
+        this.$store.dispatch('setUser', res.data.user)
 
         this.lastUser = `${this.form.email}`
         this.userRegistered = true
         this.sending = false
         this.clearForm()
-        await this.timeout(1000)
-        window.alert('redirecting you now')
+        this.$router.push('posts')
       } catch (e) {
         await this.timeout(1000)
         this.userRegFailed = true

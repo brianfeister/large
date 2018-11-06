@@ -1,16 +1,18 @@
 <template>
-  <div class="hello">
+  <div id="home">
     <div class="md-display-1">Home</div>
+    <p>A list of all public posts</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  }
+  name: 'Home',
 }
 </script>
+
+<style>
+#home {
+  margin-top: 40px;
+}
+</style>

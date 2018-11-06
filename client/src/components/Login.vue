@@ -98,17 +98,19 @@ export default {
         this.sending = true
         this.userLoginFailed = false
 
-        await Auth.login({
+        const res = await Auth.login({
           email: this.form.email,
           password: this.form.password,
         })
+
+        this.$store.dispatch('setToken', res.data.token)
+        this.$store.dispatch('setUser', res.data.user)
 
         this.lastUser = `${this.form.email}`
         this.userLoggedIn = true
         this.sending = false
         this.clearForm()
-        await this.timeout(1000)
-        window.alert('redirecting you now')
+        this.$router.push('posts')
       } catch (e) {
         await this.timeout(1000)
         this.userLoginFailed = true
