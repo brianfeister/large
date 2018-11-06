@@ -8,11 +8,9 @@ import store from '@/store'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
-import Fragment from 'vue-fragment'
 
 Vue.config.productionTip = false
 Vue.use(VueMaterial)
-Vue.use(Fragment.Plugin)
 
 sync(store, router)
 
