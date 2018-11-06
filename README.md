@@ -9,6 +9,9 @@ The name is a joke about another well-known blogging platform. Basically, I want
 1. You'll need two shell windows to run the project, and you'll need `node` (v8+), `yarn`, and `npm` installed globally
 1. In the first shell `cd <project root>/client && yarn install && yarn start`
 1. In the second shell `cd <project root>/server && npm install && npm start`
+1. Navigate to `localhost:8082` in your browser
+1. Register a user
+1. Create a post
 
 ## What this project does
 
