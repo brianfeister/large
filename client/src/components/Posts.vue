@@ -12,7 +12,7 @@
       <div v-if="!loading && posts && posts.length === 0">
         <br />
         <br />
-        No posts yet...
+        {{ noPostsMsg }}
         <br />
         <md-button to="/posts/new">add one</md-button>
       </div>
@@ -33,6 +33,7 @@ export default {
     'filter',
     'subtext',
     'pageTitle',
+    'noPostsMsg'
   ],
   components: {
     EditorReadOnly,

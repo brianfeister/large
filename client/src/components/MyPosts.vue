@@ -4,6 +4,7 @@
       :filter="{ createdBy: $store.state.user.email}"
       subtext="A list of all of YOUR posts"
       pageTitle="My Posts"
+      noPostsMsg="No posts by YOU yet..."
     />
   </div>
 </template>

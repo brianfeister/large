@@ -3,6 +3,7 @@
     <posts
       subtext="A list of posts from EVERYONE"
       pageTitle="Home"
+      noPostsMsg="No posts by anyone yet..."
     />
   </div>
 </template>

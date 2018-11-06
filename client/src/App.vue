@@ -50,7 +50,7 @@
         </div>
 
         <div class="md-toolbar-row">
-          <md-tabs class="md-primary">
+          <md-tabs :md-active-tab="activeTab" class="md-primary">
             <md-tab
               @click="navTo('/')"
               id="tab-home"
@@ -61,7 +61,6 @@
               id="tab-posts"
               md-label="Posts">
             </md-tab>
-            <!-- <md-tab id="tab-favorites" md-label="Favorites"></md-tab> -->
           </md-tabs>
         </div>
       </md-app-toolbar>
@@ -79,16 +78,6 @@
             <md-icon>edit</md-icon>
             <span class="md-list-item-text">Manage Posts</span>
           </md-list-item>
-
-    <!--           <md-list-item>
-            <md-icon>delete</md-icon>
-            <span class="md-list-item-text">Trash</span>
-          </md-list-item>
-
-          <md-list-item>
-            <md-icon>error</md-icon>
-            <span class="md-list-item-text">Spam</span>
-          </md-list-item> -->
         </md-list>
       </md-app-drawer>
 
@@ -103,7 +92,8 @@
 export default {
   name: 'App',
   data: () => ({
-    menuVisible: false
+    menuVisible: false,
+    activeTab: null,
   }),
   methods: {
     logout () {
@@ -117,7 +107,13 @@ export default {
     handleSideNavClick (route) {
       this.menuVisible = false
       this.$router.push(route)
+    },
+    getTabState () {
+      return this.$router.history.current.name === 'Home' ? 'tab-home' : 'tab-posts'
     }
+  },
+  mounted () {
+    this.activeTab = this.$router.history.current.name === 'Home' ? 'tab-home' : 'tab-posts'
   }
 }
 </script>
