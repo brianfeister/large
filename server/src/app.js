@@ -11,6 +11,7 @@ app.use(cors())
 
 require('./routes')(app)
 
+// uncomment me to drop all db records
 // sequelize.sync({ force: true })
 sequelize.sync()
   .then(() => {
