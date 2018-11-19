@@ -27,6 +27,7 @@ The name is a joke about another well-known blogging platform. Basically, I want
 
 ## What I want to make it do
 
+1. The `vue-material` library is I think mostly abandoned, I think the active library in the community is actually (`vuetifyjs`)[https://vuetifyjs.com]
 1. Fix a handful of janky styling issues in the editor views
 1. Get passport or similar middleware in there and prevent users from deleting each other's posts, though the communal sharing of all posts is also pretty amusing
 1. Errors and error codes by the server are not properly organized and represented by error classes with custom messages / correct status codes as they should be
